@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "SkyCast",
-    "slug": "SkyCast",
+    "name": "betterSky",
+    "slug": "betterSky",
     "version": "1.0.0",
-    "scheme": "skycast",
+    "scheme": "bettersky",
     "icon": "./assets/icon.png",
     "orientation": "default",
     "userInterfaceStyle": "automatic",
@@ -23,14 +23,14 @@
       "typedRoutes": true
     },
     "ios": {
-      "bundleIdentifier": "dev.christopherjbaker.skycast",
+      "bundleIdentifier": "com.bettersky.app",
       "supportsTablet": true,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "package": "dev.christopherjbaker.skycast",
+      "package": "com.bettersky.app",
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION"
