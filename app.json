@@ -46,10 +46,7 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "2e7fab2b-8ca9-4fd0-941c-d3972eba063b"
-      }
+      "router": {}
     }
   }
 }
