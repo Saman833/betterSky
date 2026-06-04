@@ -1,7 +1,4 @@
-import {
-  fetchCurrentWeather,
-  type WeatherLocation,
-} from "#shared/weather"
+import { fetchCurrentWeather, type WeatherLocation } from "#shared/weather"
 
 import { type WeatherSnapshot } from "./getSimilarCities"
 

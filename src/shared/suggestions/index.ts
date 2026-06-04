@@ -1,4 +1,5 @@
 export * from "./cities"
+export * from "./findCityByName"
 export * from "./getSimilarCities"
 export * from "./suggestionsWeather"
 export * from "./useSuggestions"

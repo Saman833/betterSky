@@ -2,12 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 
 import { type WeatherLocation } from "#shared/weather"
 
-import {
-  addFavoriteToList,
-  isFavorite,
-  removeFavoriteFromList,
-} from "./favoritesLogic"
-
 const STORAGE_KEY = "favorites"
 
 export async function loadFavorites(): Promise<WeatherLocation[]> {
@@ -22,5 +16,3 @@ export async function saveFavorites(
 ): Promise<void> {
   await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(favorites))
 }
-
-export { addFavoriteToList, isFavorite, removeFavoriteFromList }
