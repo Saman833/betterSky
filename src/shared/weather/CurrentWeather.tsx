@@ -6,44 +6,19 @@ import Typography from "#design/elements/Typegraphy"
 import { spacing } from "#design/foundations"
 import { hapticImpact } from "#shared/haptics"
 
-import toWeather, { type Weather } from "./toWeather"
 import { type WeatherLocation } from "./types"
+import { fetchCurrentWeather, type CurrentWeatherData } from "./weatherApi"
 
 export const CurrentWeather: React.FC<{
   location?: WeatherLocation
 }> = ({ location }) => {
-  const [data, setData] = useState<{
-    condition: Weather
-    temperature: number
-    wind: number
-    humidity: number
-    uv: number
-  }>()
+  const [data, setData] = useState<CurrentWeatherData>()
 
   useEffect(() => {
     void (async () => {
       if (!location) return
 
-      const response = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&current=temperature_2m,is_day,weather_code,wind_speed_10m,relative_humidity_2m,uv_index`,
-      )
-      const data = (await response.json()) as {
-        current: {
-          weather_code: number
-          temperature_2m: number
-          wind_speed_10m: number
-          relative_humidity_2m: number
-          uv_index: number
-        }
-      }
-
-      setData({
-        condition: toWeather(data.current.weather_code),
-        temperature: data.current.temperature_2m,
-        wind: data.current.wind_speed_10m,
-        humidity: data.current.relative_humidity_2m,
-        uv: data.current.uv_index,
-      })
+      setData(await fetchCurrentWeather(location))
     })()
   }, [location])
 

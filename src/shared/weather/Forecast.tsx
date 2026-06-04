@@ -5,48 +5,19 @@ import Card from "#design/elements/Card"
 import Typography from "#design/elements/Typegraphy"
 import { spacing } from "#design/foundations"
 
-import toWeather, { type Weather } from "./toWeather"
 import { type WeatherLocation } from "./types"
+import { fetchForecast, type ForecastData } from "./weatherApi"
 
 export const Forecast: React.FC<{
   location?: WeatherLocation
 }> = ({ location }) => {
-  const [data, setData] = useState<
-    Array<{
-      day: string
-      temperatureMax: number
-      temperatureMin: number
-      condition: Weather
-    }>
-  >()
+  const [data, setData] = useState<ForecastData>()
 
   useEffect(() => {
     void (async () => {
       if (!location) return
 
-      const response = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&daily=temperature_2m_max,temperature_2m_min,weather_code`,
-      )
-      const data = (await response.json()) as {
-        daily: {
-          time: string[]
-          temperature_2m_max: number[]
-          temperature_2m_min: number[]
-          weather_code: number[]
-        }
-      }
-
-      const forecast = []
-      for (let i = 0; i < data.daily.time.length; i++) {
-        forecast.push({
-          day: data.daily.time[i],
-          temperatureMax: data.daily.temperature_2m_max[i],
-          temperatureMin: data.daily.temperature_2m_min[i],
-          condition: toWeather(data.daily.weather_code[i]),
-        })
-      }
-
-      setData(forecast)
+      setData(await fetchForecast(location))
     })()
   }, [location])
 
