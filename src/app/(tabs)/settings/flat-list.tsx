@@ -12,10 +12,7 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [items, setItems] = useState<Item[]>([])
 
-  console.log("loading", loading)
-
   const refresh = useCallback(async () => {
-    console.log("refresh")
     setLoading(true)
     await delay(1000)
 
@@ -25,7 +22,6 @@ const App: React.FC = () => {
   }, [])
 
   const more = useCallback(async () => {
-    console.log("more")
     setLoading(true)
     await delay(1000)
 

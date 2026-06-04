@@ -42,6 +42,5 @@ export async function lookupLocation(
   type: "country" | "city" | "address",
   coords: DeviceLocation,
 ): Promise<string> {
-  // TODO: Use Google Reverse Geocode API
   return "Here"
 }

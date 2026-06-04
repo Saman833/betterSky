@@ -28,6 +28,6 @@ export function subscribeDeviceMotion(
   })
 
   return () => {
-    DeviceMotion.removeSubscription(subscription)
+    subscription.remove()
   }
 }

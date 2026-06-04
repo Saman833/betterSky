@@ -18,10 +18,7 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [sections, setSections] = useState<Section[]>([])
 
-  console.log("loading", loading)
-
   const refresh = useCallback(async () => {
-    console.log("refresh")
     setLoading(true)
     await delay(1000)
 
@@ -31,7 +28,6 @@ const App: React.FC = () => {
   }, [])
 
   const more = useCallback(async () => {
-    console.log("more")
     setLoading(true)
     await delay(1000)
 
