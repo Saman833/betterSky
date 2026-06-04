@@ -1,30 +1,59 @@
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 import { type WeatherLocation } from "#shared/weather"
 
-const STORAGE_KEY = "favorites"
+import {
+  addFavoriteToList,
+  isFavorite as isFavoriteInList,
+  removeFavoriteFromList,
+} from "./favoritesLogic"
+import { loadFavorites, saveFavorites } from "./favoritesStorage"
 
-export function useFavorites(): [WeatherLocation[]] {
+export type UseFavoritesResult = {
+  favorites: WeatherLocation[]
+  isReady: boolean
+  addFavorite: (location: WeatherLocation) => Promise<void>
+  removeFavorite: (name: string) => Promise<void>
+  isFavorite: (name: string) => boolean
+}
+
+export function useFavorites(): UseFavoritesResult {
   const [favorites, setFavorites] = useState<WeatherLocation[]>([])
+  const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
-    // void AsyncStorage.setItem(
-    //   STORAGE_KEY,
-    //   JSON.stringify([
-    //     { name: "Reno", latitude: 39.5299, longitude: 119.8143 },
-    //     { name: "Barcelona", latitude: 41.385063, longitude: 2.173404 },
-    //   ]),
-    // )
-
     void (async () => {
-      const cached = await AsyncStorage.getItem(STORAGE_KEY)
-      if (!cached) return
-
-      const favorites = JSON.parse(cached) as WeatherLocation[]
-      setFavorites(favorites)
+      setFavorites(await loadFavorites())
+      setIsReady(true)
     })()
   }, [])
 
-  return [favorites]
+  const addFavorite = useCallback(async (location: WeatherLocation) => {
+    setFavorites((current) => {
+      const next = addFavoriteToList(current, location)
+      void saveFavorites(next)
+      return next
+    })
+  }, [])
+
+  const removeFavorite = useCallback(async (name: string) => {
+    setFavorites((current) => {
+      const next = removeFavoriteFromList(current, name)
+      void saveFavorites(next)
+      return next
+    })
+  }, [])
+
+  const isFavorite = useCallback(
+    (name: string) => isFavoriteInList(favorites, name),
+    [favorites],
+  )
+
+  return {
+    favorites,
+    isReady,
+    addFavorite,
+    removeFavorite,
+    isFavorite,
+  }
 }

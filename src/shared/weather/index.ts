@@ -1,4 +1,5 @@
 export * from "./types"
+export * from "./toWeather"
 export * from "./weatherApi"
 export * from "./CurrentWeather"
 export * from "./Forecast"
