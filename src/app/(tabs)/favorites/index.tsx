@@ -5,7 +5,7 @@ import Typography from "#design/elements/Typegraphy"
 import { useFavorites } from "#shared/favorites"
 
 const App: React.FC = () => {
-  const [favorites] = useFavorites()
+  const { favorites } = useFavorites()
 
   return (
     <>

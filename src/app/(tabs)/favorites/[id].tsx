@@ -7,7 +7,7 @@ import { CurrentWeather, Forecast } from "#shared/weather"
 const App: React.FC = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
 
-  const [favorites] = useFavorites()
+  const { favorites } = useFavorites()
   const location = favorites.find((favorite) => favorite.name === id)
 
   return (
