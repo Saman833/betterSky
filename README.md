@@ -52,8 +52,7 @@ No `.env` file is required for local development. Open-Meteo is a public API and
 **Validate and run**
 
 ```bash
-npm run lint      # typecheck, ESLint, Prettier, Knip (same as CI)
-npm run test:ci   # full test suite with coverage
+npm run verify    # expo-doctor + lint + tests (recommended before PR)
 npm start
 ```
 
@@ -70,6 +69,7 @@ GitHub Actions workflow: `.github/workflows/verify-and-build.yaml`
 **CI (on every push and pull request)**
 
 - `npm ci --force`
+- `npx expo-doctor`
 - `npm run lint-typecheck`
 - `npm run lint-eslint`
 - `npm run lint-prettier`

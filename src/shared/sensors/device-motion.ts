@@ -1,4 +1,4 @@
-import { PermissionStatus } from "expo-modules-core"
+import { PermissionStatus } from "expo"
 import { type DeviceMotionMeasurement, DeviceMotion } from "expo-sensors"
 
 let configured: boolean | null = null

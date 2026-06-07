@@ -7,17 +7,13 @@
     "icon": "./assets/icon.png",
     "orientation": "default",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "plugins": [
       "expo-router",
       "expo-screen-orientation",
       "expo-location",
-      "expo-sensors"
+      "expo-sensors",
+      "expo-font",
+      "expo-asset"
     ],
     "experiments": {
       "typedRoutes": true
@@ -39,7 +35,6 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
     "web": {

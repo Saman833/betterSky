@@ -1,10 +1,24 @@
-import * as Notifications from "expo-notifications"
+import ExpoConstants, { ExecutionEnvironment } from "expo-constants"
 import { Platform } from "react-native"
 
 let configured: boolean | null = null
 
+function isExpoGo(): boolean {
+  return ExpoConstants.executionEnvironment === ExecutionEnvironment.StoreClient
+}
+
 export async function configureNotifications(): Promise<boolean> {
   if (configured !== null) return configured
+
+  if (isExpoGo()) {
+    console.warn(
+      "Notification demos require a development build in Expo SDK 53+. Settings still work in Expo Go.",
+    )
+    configured = false
+    return false
+  }
+
+  const Notifications = await import("expo-notifications")
 
   const { status } = await Notifications.requestPermissionsAsync()
   if (status !== Notifications.PermissionStatus.GRANTED) {
@@ -15,10 +29,7 @@ export async function configureNotifications(): Promise<boolean> {
   }
 
   Notifications.setNotificationHandler({
-    handleNotification: async (notification) => {
-      // await new Promise((resolve) => setTimeout(resolve, 1000))
-      // await Notifications.dismissNotificationAsync(id)
-
+    handleNotification: async () => {
       return {
         shouldPlaySound: false,
         shouldSetBadge: false,
@@ -41,7 +52,10 @@ export async function createNotification({
   short?: string
   body: string
 }): Promise<void> {
-  await configureNotifications()
+  const ready = await configureNotifications()
+  if (!ready) return
+
+  const Notifications = await import("expo-notifications")
 
   await Notifications.scheduleNotificationAsync({
     content: {
