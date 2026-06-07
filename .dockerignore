@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+.expo
+.git
+.github
+.vscode
+web-build
+npm-debug.log*
+Dockerfile
+README.md

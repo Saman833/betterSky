@@ -17,12 +17,15 @@
     "test": "jest --watchAll",
     "test:ci": "jest --coverage",
     "start": "expo start --clear",
-    "build": "eas build --platform android --non-interactive --no-wait"
+    "web": "expo start --web",
+    "build:web": "expo export --platform web",
+    "build:android": "eas build --platform android --non-interactive --no-wait"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~56.0.14",
     "@expo/vector-icons": "^15.1.1",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/drawer": "^7.10.2",
@@ -45,6 +48,7 @@
     "react-native-reanimated": "4.3.1",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-screens": "4.25.2",
+    "react-native-web": "^0.21.2",
     "react-native-worklets": "0.8.3"
   },
   "devDependencies": {
